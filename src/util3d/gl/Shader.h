@@ -1,7 +1,7 @@
 #ifndef BLOODY3D_GL_SHADER
 #define BLOODY3D_GL_SHADER
 
-#include "util3d/gl3w.h"
+#include "../gl3w.h"
 
 #include <iostream>
 #include <vector>
