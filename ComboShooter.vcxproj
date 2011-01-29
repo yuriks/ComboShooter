@@ -10,6 +10,21 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\util3d\gl3w.h" />
+    <ClInclude Include="src\util3d\gl\BufferObject.h" />
+    <ClInclude Include="src\util3d\gl\Shader.h" />
+    <ClInclude Include="src\util3d\gl\ShaderProgram.h" />
+    <ClInclude Include="src\util3d\gl\VertexArrayObject.h" />
+    <ClInclude Include="src\util3d\Matrix.h" />
+    <ClInclude Include="src\util3d\MatrixTransform.h" />
+    <ClInclude Include="src\util3d\Vector.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\util3d\gl3w.cpp" />
+    <ClCompile Include="src\util3d\gl\Shader.cpp" />
+    <ClCompile Include="src\util3d\MatrixTransform.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7FF693F4-3F87-404D-9356-9A9345A51A5B}</ProjectGuid>
     <RootNamespace>ComboShooter</RootNamespace>
