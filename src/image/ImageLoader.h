@@ -14,12 +14,6 @@ public:
 	PngException(const std::string& str);
 };
 
-class IOException : std::runtime_error
-{
-public:
-	IOException(const std::string& str);
-};
-
 class Image : boost::noncopyable
 {
 public:
@@ -45,11 +39,6 @@ private:
 ///////////////////////////////////////////////////////////////////////////////
 
 inline PngException::PngException(const std::string& str)
-	: std::runtime_error(str)
-{
-}
-
-inline IOException::IOException(const std::string& str)
 	: std::runtime_error(str)
 {
 }
