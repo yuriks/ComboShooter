@@ -5,6 +5,7 @@
 #include "util3d/gl/BufferObject.h"
 #include "util3d/gl/Shader.h"
 #include "util3d/gl/ShaderProgram.h"
+#include "util3d/gl/Texture.h"
 #include "image/ImageLoader.h"
 
 #include <iostream>
@@ -51,9 +52,9 @@ struct vertex_data {
 static_assert (sizeof(vertex_data) == sizeof(float)*8, "Oops. Padding.");
 
 static const vertex_data data[3] = {
-	{-.5f,  .5f, 0.f, 1.f, /*1.f, 0.f, 0.f, 1.f,*/ 0.f, 0.f},
-	{ .5f, -.5f, 0.f, 1.f, /*0.f, 1.f, 0.f, 1.f,*/ 1.f, 1.f},
-	{-.5f, -.5f, 0.f, 1.f, /*0.f, 0.f, 1.f, 1.f,*/ 0.f, 1.f}
+	{-.5f,  .5f, 0.f, 1.f, /*1.f, 0.f, 0.f, 1.f,*/ 1.f, 1.f},
+	{ .5f, -.5f, 0.f, 1.f, /*0.f, 1.f, 0.f, 1.f,*/ 0.f, 0.f},
+	{-.5f, -.5f, 0.f, 1.f, /*0.f, 0.f, 1.f, 1.f,*/ 1.f, 0.f}
 };
 static_assert (sizeof(data) == sizeof(vertex_data)*3, "Oops. Padding.");
 
@@ -107,10 +108,12 @@ int main(int argc, char *argv[])
 		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(vertex_data), (float*)0 + 4);
 		glEnableVertexAttribArray(1);
 
-		GLuint tex_id;
-		glGenTextures(1, &tex_id);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_BLEND);
+
+		gl::Texture tex;
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, tex_id);
+		tex.bind(GL_TEXTURE_2D);
 
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -160,7 +163,7 @@ int main(int argc, char *argv[])
 		glUniform1i(shader_prog.getUniformLocation("in_Tex0"), 0);
 
 		while (running) {
-			glClearColor(0.f, 0.f, 0.f, 1.f);
+			glClearColor(.2f, .2f, .2f, 1.f);
 			glClear(GL_COLOR_BUFFER_BIT);
 
 			glDrawArrays(GL_TRIANGLES, 0, 3);
@@ -169,9 +172,6 @@ int main(int argc, char *argv[])
 
 			running = glfwGetWindowParam(GLFW_OPENED) != 0;
 		}
-
-		glBindTexture(GL_TEXTURE_2D, 0);
-		glDeleteTextures(1, &tex_id);
 	}
 
 	glfwTerminate();

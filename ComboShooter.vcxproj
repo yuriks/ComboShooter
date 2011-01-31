@@ -16,6 +16,7 @@
     <ClInclude Include="src\util3d\gl\BufferObject.h" />
     <ClInclude Include="src\util3d\gl\Shader.h" />
     <ClInclude Include="src\util3d\gl\ShaderProgram.h" />
+    <ClInclude Include="src\util3d\gl\Texture.h" />
     <ClInclude Include="src\util3d\gl\VertexArrayObject.h" />
     <ClInclude Include="src\util3d\Matrix.h" />
     <ClInclude Include="src\util3d\MatrixTransform.h" />

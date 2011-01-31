@@ -42,6 +42,9 @@
     <ClInclude Include="src\image\ImageLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\util3d\gl\Texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\util3d\gl\Shader.cpp">
