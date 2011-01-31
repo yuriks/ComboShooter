@@ -3,7 +3,22 @@
 
 #include <boost/noncopyable.hpp>
 
+#include <iosfwd>
+#include <stdexcept>
+
 namespace image {
+
+class PngException : std::runtime_error
+{
+public:
+	PngException(const std::string& str);
+};
+
+class IOException : std::runtime_error
+{
+public:
+	IOException(const std::string& str);
+};
 
 class Image : boost::noncopyable
 {
@@ -18,6 +33,8 @@ public:
 	int getWidth() const;
 	int getHeight() const;
 	unsigned char* getData() const;
+
+	static void loadPNGFileRGBA8(Image& image, std::istream& stream);
 
 private:
 	int width;
