@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\image\ImageLoader.h" />
     <ClInclude Include="src\util3d\gl3w.h" />
     <ClInclude Include="src\util3d\gl\BufferObject.h" />
     <ClInclude Include="src\util3d\gl\Shader.h" />
@@ -21,6 +22,7 @@
     <ClInclude Include="src\util3d\Vector.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\image\ImageLoader.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\util3d\gl3w.cpp" />
     <ClCompile Include="src\util3d\gl\Shader.cpp" />
