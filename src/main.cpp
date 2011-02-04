@@ -16,33 +16,6 @@
 //#define GLFW_GL3_H
 #include <GL/glfw.h>
 
-static const char* vert_shader_src =
-"#version 330\n"
-"// in_Position was bound to attribute index 0 and in_Color was bound to attribute index 1\n"
-"in  vec4 in_Position;\n"
-"in  vec2 in_TexCoord;\n"
-"uniform mat4 in_Proj;\n"
-"\n"
-"// We output the ex_Color variable to the next shader in the chain\n"
-"out vec2 ex_TexCoord;\n"
-"\n"
-"void main(void) {\n"
-"    gl_Position = in_Proj * in_Position;\n"
-"    ex_TexCoord = in_TexCoord;\n"
-"}\n";
-
-static const char* frag_shader_src =
-"#version 330\n"
-"\n"
-"in  vec2 ex_TexCoord;\n"
-"out vec4 out_Color;\n"
-"uniform sampler2D in_Tex0;\n"
-"\n"
-"void main(void) {\n"
-"    // Pass through our original color with full opacity.\n"
-"    out_Color = texture2D(in_Tex0, ex_TexCoord.st);\n"
-"}\n";
-
 struct vertex_data {
 	float x, y, z, w;
 //	float r, g, b, a;
@@ -128,8 +101,14 @@ int main(int argc, char *argv[])
 			gl::Shader vert_shader(GL_VERTEX_SHADER);
 			gl::Shader frag_shader(GL_FRAGMENT_SHADER);
 
-			vert_shader.setSource(vert_shader_src);
-			frag_shader.setSource(frag_shader_src);
+			{
+				std::ifstream f("main_shader.vert");
+				vert_shader.setSource(f);
+			}
+			{
+				std::ifstream f("main_shader.frag");
+				frag_shader.setSource(f);
+			}
 
 			vert_shader.compile();
 			frag_shader.compile();
