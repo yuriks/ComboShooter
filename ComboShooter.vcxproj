@@ -12,6 +12,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\image\ImageLoader.h" />
+    <ClInclude Include="src\util2d\Sprite.h" />
+    <ClInclude Include="src\util2d\SpriteBatch.h" />
     <ClInclude Include="src\util3d\gl3w.h" />
     <ClInclude Include="src\util3d\gl\BufferObject.h" />
     <ClInclude Include="src\util3d\gl\Shader.h" />
@@ -25,6 +27,8 @@
   <ItemGroup>
     <ClCompile Include="src\image\ImageLoader.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\util2d\Sprite.cpp" />
+    <ClCompile Include="src\util2d\SpriteBatch.cpp" />
     <ClCompile Include="src\util3d\gl3w.cpp" />
     <ClCompile Include="src\util3d\gl\Shader.cpp" />
     <ClCompile Include="src\util3d\MatrixTransform.cpp" />

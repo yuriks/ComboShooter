@@ -17,11 +17,15 @@ public:
 
 	operator GLuint() const;
 
+	// Provided for convenience, not automatically updated. (TODO: Probably remove.)
+	int width, height;
+
 private:
 	GLuint id;
 };
 
 inline Texture::Texture()
+	: width(-1), height(-1)
 {
 	glGenTextures(1, &id);
 }

@@ -7,6 +7,7 @@
 #include "util3d/gl/ShaderProgram.h"
 #include "util3d/gl/Texture.h"
 #include "image/ImageLoader.h"
+#include "util2d/SpriteBatch.h"
 
 #include <iostream>
 #include <fstream>
@@ -66,91 +67,82 @@ int main(int argc, char *argv[])
 		glDebugMessageCallbackARB(debug_callback, 0);
 	}
 
-	{
-		gl::VertexArrayObject vao;
-		vao.bind();
+	util2d::SpriteBatch::initialize_shared();
 
-		gl::BufferObject vbo;
-		vbo.bind(GL_ARRAY_BUFFER);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_data)*3, static_cast<const void*>(&data), GL_STATIC_DRAW);
+	util2d::SpriteBatch spr_batch;
+	const int num_spr = 512;
+	util2d::Sprite* spr[num_spr];
+	const float pi = 3.14159265f;
+	float rot[num_spr];
+	signed char spdx[num_spr];
+	signed char spdy[num_spr];
+	for (int i = 0; i < num_spr; ++i) {
+		spr[i] = spr_batch.newSprite();
+		rot[i] = rand() / (float)RAND_MAX * 2*pi;
+		spdx[i] = rand() % 4;
+		spdy[i] = rand() % 4;
 
-		glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, sizeof(vertex_data), (float*)0 + 0);
-		glEnableVertexAttribArray(0);
-		//glVertexAttribPointer(1, 4, GL_FLOAT, GL_TRUE,  sizeof(vertex_data), (float*)0 + 4);
-		//glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(vertex_data), (float*)0 + 4);
-		glEnableVertexAttribArray(1);
+		if (rand() & 1) spdx[i] = -1;
+		if (rand() & 1) spdy[i] = -1;
 
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glEnable(GL_BLEND);
+		spr[i]->x = rand() % 799;
+		spr[i]->y = rand() % 599;
+		spr[i]->img_x = spr[i]->img_y = 0;
+		spr[i]->img_w = spr[i]->img_h = 1;
 
-		gl::Texture tex;
-		glActiveTexture(GL_TEXTURE0);
-		tex.bind(GL_TEXTURE_2D);
+		spr[i]->transform(0,0) = 4.f * std::sin(rot[i]*2.f) * std::cos(rot[i]);
+		spr[i]->transform(0,1) = 4.f * std::sin(rot[i]);
+		spr[i]->transform(1,0) = -4.f * std::sin(rot[i]*2.f) * std::sin(rot[i]);
+		spr[i]->transform(1,1) = 4.f * std::cos(rot[i]);
+	}
 
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, img.getWidth(), img.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, img.getData());
+	gl::Texture tex;
+	glActiveTexture(GL_TEXTURE0);
+	tex.bind(GL_TEXTURE_2D);
 
-		gl::ShaderProgram shader_prog;
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-		{
-			gl::Shader vert_shader(GL_VERTEX_SHADER);
-			gl::Shader frag_shader(GL_FRAGMENT_SHADER);
+	tex.width = img.getWidth();
+	tex.height = img.getHeight();
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, img.getWidth(), img.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, img.getData());
 
-			{
-				std::ifstream f("main_shader.vert");
-				vert_shader.setSource(f);
-			}
-			{
-				std::ifstream f("main_shader.frag");
-				frag_shader.setSource(f);
-			}
+	spr_batch.setTexture(&tex);
 
-			vert_shader.compile();
-			frag_shader.compile();
+	bool running = true;
 
-			std::cout << "### Vertex Shader Log ###\n";
-			vert_shader.printInfoLog(std::cout);
-			std::cout << "### Fragment Shader Log ###\n";
-			frag_shader.printInfoLog(std::cout);
+	glClearColor(.2f, .2f, .2f, 1.f);
 
-			shader_prog.attachShader(vert_shader);
-			shader_prog.attachShader(frag_shader);
+	while (running) {
+		double time_start = glfwGetTime();
 
-			shader_prog.bindAttribute(0, "in_Position");
-			//shader_prog.bindAttribute(1, "in_Color");
-			shader_prog.bindAttribute(1, "in_TexCoord");
-			glBindFragDataLocation(shader_prog, 0, "out_Color");
+		for (int i = 0; i < num_spr; ++i) {
+			rot[i] += 0.01f;
 
-			shader_prog.link();
-			std::cout << "### Linking Log ###\n";
-			shader_prog.printInfoLog(std::cout);
+			spr[i]->x += spdx[i];
+			spr[i]->y += spdy[i];
+
+			if (spr[i]->x >= 799 || spr[i]->x < 0) spdx[i] = -spdx[i];
+			if (spr[i]->y >= 599 || spr[i]->y < 0) spdy[i] = -spdy[i];
+
+			spr[i]->transform(0,0) = 4.f * std::sin(rot[i]*2.f) * std::cos(rot[i]);
+			spr[i]->transform(0,1) = 4.f * std::sin(rot[i]);
+			spr[i]->transform(1,0) = -4.f * std::sin(rot[i]*2.f) * std::sin(rot[i]);
+			spr[i]->transform(1,1) = 4.f * std::cos(rot[i]);
 		}
 
-		shader_prog.use();
+		glClear(GL_COLOR_BUFFER_BIT);
 
-		bool running = true;
+		spr_batch.draw();
 
-		vec3 s = {600./800., 1.f, 1.f};
-		mat4 m = mat_transform::scale(s);
+		std::cout << "\r" << (glfwGetTime() - time_start) * 1000.0 << "ms" << std::flush;
 
-		glUniformMatrix4fv(shader_prog.getUniformLocation("in_Proj"), 1, false, &m.data[0]);
-		glUniform1i(shader_prog.getUniformLocation("in_Tex0"), 0);
+		glfwSwapBuffers();
 
-		while (running) {
-			glClearColor(.2f, .2f, .2f, 1.f);
-			glClear(GL_COLOR_BUFFER_BIT);
-
-			glDrawArrays(GL_TRIANGLES, 0, 3);
-
-			glfwSwapBuffers();
-
-			running = glfwGetWindowParam(GLFW_OPENED) != 0;
-		}
+		running = glfwGetWindowParam(GLFW_OPENED) != 0;
 	}
 
 	glfwTerminate();
