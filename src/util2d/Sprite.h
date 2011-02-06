@@ -20,6 +20,7 @@ public:
 
 	short x, y;
 	mat2 transform;
+	unsigned char r, g, b, a;
 
 	unsigned char img_x, img_y;
 	unsigned char img_w, img_h;

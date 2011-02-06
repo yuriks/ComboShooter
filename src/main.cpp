@@ -89,6 +89,10 @@ int main(int argc, char *argv[])
 		spr[i]->y = rand() % 599;
 		spr[i]->img_x = spr[i]->img_y = 0;
 		spr[i]->img_w = spr[i]->img_h = 1;
+		spr[i]->r = rand() % 256;
+		spr[i]->g = rand() % 256;
+		spr[i]->b = rand() % 256;
+		spr[i]->a = rand() % 256;
 
 		spr[i]->transform(0,0) = 4.f * std::sin(rot[i]*2.f) * std::cos(rot[i]);
 		spr[i]->transform(0,1) = 4.f * std::sin(rot[i]);

@@ -21,13 +21,15 @@ gl::Shader* spr_base_frag_shader = 0;
 gl::ShaderProgram* spr_base_shader = 0;
 
 struct sprite_data {
+	GLfloat m[4];
 	GLshort x, y;
-	GLshort m[4]; // 8:8 fixed point
+	GLubyte r, g, b, a;
 	GLubyte img_x, img_y;
 	GLubyte img_w, img_h;
+
 };
-static const int sprite_size = 16;
-static_assert (sizeof(sprite_data) <= sprite_size, "Struct doesn't fit on a 16-byte slot.");
+static const int sprite_size = 32;
+static_assert (sizeof(sprite_data) <= sprite_size, "Struct doesn't fit on a 32-byte slot.");
 
 } // namespace
 
@@ -43,10 +45,11 @@ SpriteBatch::SpriteBatch()
 	glBufferData(GL_ARRAY_BUFFER, buffer_size*sprite_size, 0, GL_STREAM_DRAW);
 
 	glVertexAttribPointer(0, 2, GL_SHORT, GL_FALSE, sprite_size, (void*)offsetof(sprite_data, x));
-	glVertexAttribPointer(1, 4, GL_SHORT, GL_FALSE, sprite_size, (void*)offsetof(sprite_data, m));
+	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sprite_size, (void*)offsetof(sprite_data, m));
 	glVertexAttribIPointer(2, 2, GL_UNSIGNED_BYTE, sprite_size, (void*)offsetof(sprite_data, img_x));
 	glVertexAttribIPointer(3, 2, GL_UNSIGNED_BYTE, sprite_size, (void*)offsetof(sprite_data, img_w));
-	for (int i = 0; i < 4; ++i)
+	glVertexAttribPointer(4, 4, GL_UNSIGNED_BYTE, GL_TRUE, sprite_size, (void*)offsetof(sprite_data, r));
+	for (int i = 0; i < 5; ++i)
 		glEnableVertexAttribArray(i);
 }
 
@@ -92,13 +95,15 @@ void SpriteBatch::draw() const
 		for (auto i = sprites.cbegin(); i != sprites.cend(); ++i, buf += sprite_size) {
 			sprite_data& spr = *reinterpret_cast<sprite_data*>(buf);
 
+			for (int j = 0; j < 4; ++j) {
+				spr.m[j] = i->transform.data[j];
+			}
 			spr.x = i->x;
 			spr.y = i->y;
-			for (int j = 0; j < 4; ++j) {
-				spr.m[j] = static_cast<GLshort>(i->transform.data[j] * 256.f + .5f);
-				int z = spr.m[j];
-				z += 0;
-			}
+			spr.r = i->r;
+			spr.g = i->g;
+			spr.b = i->b;
+			spr.a = i->a;
 			spr.img_x = i->img_x;
 			spr.img_y = i->img_y;
 			spr.img_w = i->img_w;
@@ -172,6 +177,7 @@ void SpriteBatch::initialize_shared()
 		s.bindAttribute(1, "in_Transform");
 		s.bindAttribute(2, "in_TexPos");
 		s.bindAttribute(3, "in_TexSize");
+		s.bindAttribute(4, "in_Color");
 		glBindFragDataLocation(s, 0, "out_Color");
 
 		s.link();
