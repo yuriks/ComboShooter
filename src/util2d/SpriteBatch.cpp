@@ -11,6 +11,8 @@
 #include <cassert>
 #include <fstream>
 
+extern mat4 screen_transform;
+
 namespace util2d {
 
 namespace {
@@ -19,6 +21,8 @@ gl::Shader* spr_base_vert_shader = 0;
 gl::Shader* spr_base_geom_shader = 0;
 gl::Shader* spr_base_frag_shader = 0;
 gl::ShaderProgram* spr_base_shader = 0;
+
+GLuint u_Tex0, u_ScreenTransform;
 
 struct sprite_data {
 	GLfloat m[4];
@@ -72,18 +76,11 @@ void SpriteBatch::draw() const
 {
 	spr_vao.bind();
 
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glEnable(GL_BLEND);
-
 	spr_base_shader->use();
 
-	glUniform1i(spr_base_shader->getUniformLocation("u_Tex0"), 0);
+	glUniform1i(u_Tex0, 0);
 
-	vec3 s = {2.f/800.f, -2.f/600.f, 1.f};
-	vec3 t = {-1.f, 1.f, 0.f};
-	mat4 m = mat_transform::translate(t) * mat_transform::scale(s);
-	
-	glUniformMatrix4fv(spr_base_shader->getUniformLocation("u_ScreenTransform"), 1, false, &m.data[0]);
+	glUniformMatrix4fv(u_ScreenTransform, 1, false, &screen_transform.data[0]);
 
 	glActiveTexture(GL_TEXTURE0);
 	texture->bind(GL_TEXTURE_2D);
@@ -182,6 +179,9 @@ void SpriteBatch::initialize_shared()
 		s.link();
 		std::cerr << "### Linking Log ###\n";
 		s.printInfoLog(std::cerr);
+
+		u_Tex0 = spr_base_shader->getUniformLocation("u_Tex0");
+		u_ScreenTransform = spr_base_shader->getUniformLocation("u_ScreenTransform");
 	}
 }
 

@@ -32,6 +32,8 @@ static const vertex_data data[3] = {
 };
 static_assert (sizeof(data) == sizeof(vertex_data)*3, "Oops. Padding.");
 
+mat4 screen_transform;
+
 void APIENTRY debug_callback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, GLvoid* userParam)
 {
 	std::cout << message << std::endl;
@@ -150,6 +152,15 @@ int main(int argc, char *argv[])
 		glDebugMessageControlARB(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, 0, GL_TRUE);
 		glDebugMessageCallbackARB(debug_callback, 0);
 	}
+
+	{
+		vec3 s = {2.f/800.f, -2.f/600.f, 1.f};
+		vec3 t = {-1.f, 1.f, 0.f};
+		screen_transform = mat_transform::translate(t) * mat_transform::scale(s);
+	}
+
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_BLEND);
 
 	sprite_test();
 
