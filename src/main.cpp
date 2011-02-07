@@ -37,34 +37,12 @@ void APIENTRY debug_callback(GLenum source, GLenum type, GLuint id, GLenum sever
 	std::cout << message << std::endl;
 }
 
-int main(int argc, char *argv[])
+void sprite_test()
 {
 	image::Image img;
-
 	{
 		std::ifstream f("testimg-rgba.png", std::ios::in | std::ios::binary);
 		image::Image::loadPNGFileRGBA8(img, f);
-	}
-
-	glfwInit();
-
-	glfwOpenWindowHint(GLFW_OPENGL_VERSION_MAJOR, 3);
-	glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 3);
-	glfwOpenWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-	glfwOpenWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
-	glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	glfwOpenWindow(800, 600, 8, 8, 8, 8, 24, 8, GLFW_WINDOW);
-
-	if (gl3wInit() != 0) {
-		std::cerr << "Failed to initialize gl3w." << std::endl;
-	} else if (!gl3wIsSupported(3, 3)) {
-		std::cerr << "OpenGL 3.3 not supported." << std::endl;
-	}
-
-	if (glDebugMessageCallbackARB) {
-		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS_ARB);
-		glDebugMessageControlARB(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, 0, GL_TRUE);
-		glDebugMessageCallbackARB(debug_callback, 0);
 	}
 
 	util2d::SpriteBatch::initialize_shared();
@@ -148,6 +126,32 @@ int main(int argc, char *argv[])
 
 		running = glfwGetWindowParam(GLFW_OPENED) != 0;
 	}
+}
+
+int main(int argc, char *argv[])
+{
+	glfwInit();
+
+	glfwOpenWindowHint(GLFW_OPENGL_VERSION_MAJOR, 3);
+	glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 3);
+	glfwOpenWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+	glfwOpenWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
+	glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwOpenWindow(800, 600, 8, 8, 8, 8, 24, 8, GLFW_WINDOW);
+
+	if (gl3wInit() != 0) {
+		std::cerr << "Failed to initialize gl3w." << std::endl;
+	} else if (!gl3wIsSupported(3, 3)) {
+		std::cerr << "OpenGL 3.3 not supported." << std::endl;
+	}
+
+	if (glDebugMessageCallbackARB) {
+		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS_ARB);
+		glDebugMessageControlARB(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, 0, GL_TRUE);
+		glDebugMessageCallbackARB(debug_callback, 0);
+	}
+
+	sprite_test();
 
 	glfwTerminate();
 
