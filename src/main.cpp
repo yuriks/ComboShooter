@@ -8,6 +8,7 @@
 #include "util3d/gl/Texture.h"
 #include "image/ImageLoader.h"
 #include "util2d/SpriteBatch.h"
+#include "util2d/Tilemap.h"
 
 #include <iostream>
 #include <fstream>
@@ -130,6 +131,65 @@ void sprite_test()
 	}
 }
 
+void tilemap_test()
+{
+	image::Image img;
+	{
+		std::ifstream f("tileset.png", std::ios::in | std::ios::binary);
+		image::Image::loadPNGFileRGBA8(img, f);
+	}
+
+	util2d::Tilemap::initialize_shared();
+
+	gl::Texture tex;
+	glActiveTexture(GL_TEXTURE0);
+	tex.bind(GL_TEXTURE_2D);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+	tex.width = img.getWidth();
+	tex.height = img.getHeight();
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, img.getWidth(), img.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, img.getData());
+
+	unsigned short map[20*2*15*2];
+	for (int i = 0; i < 20; ++i) {
+		for (int j = 0; j < 15; ++j) {
+			map[20*2*j + i] = 20*j + i;
+			map[20*2*j + i + 20] = 20*j + i;
+			map[20*2*(j+15) + i] = 20*j + i;
+			map[20*2*(j+15) + i + 20] = 20*j + i;
+		}
+	}
+
+	util2d::Tilemap tilemap(0, 0, 320*2, 240*2);
+	tilemap.setTexture(&tex);
+	tilemap.setTilemap(map, 20*2, 15*2);
+
+	bool running = true;
+
+	glClearColor(.2f, .2f, .2f, 1.f);
+
+	while (running) {
+		double time_start = glfwGetTime();
+
+		glClear(GL_COLOR_BUFFER_BIT);
+
+		for (int i = 0; i < 128; i += 8) {
+			tilemap.x = tilemap.y = i;
+			tilemap.draw();
+		}
+
+		std::cout << "\r" << (glfwGetTime() - time_start) * 1000.0 << "ms" << std::flush;
+
+		glfwSwapBuffers();
+
+		running = glfwGetWindowParam(GLFW_OPENED) != 0;
+	}
+}
+
 int main(int argc, char *argv[])
 {
 	glfwInit();
@@ -162,7 +222,8 @@ int main(int argc, char *argv[])
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_BLEND);
 
-	sprite_test();
+	//sprite_test();
+	tilemap_test();
 
 	glfwTerminate();
 
