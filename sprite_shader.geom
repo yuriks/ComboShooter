@@ -22,25 +22,21 @@ void main(void) {
 	vec2 s = vg_TexSize[0] / 2.f;
 
 	gl_Position = u_ScreenTransform * vec4((m * -s) + s + gl_in[0].gl_Position.xy, 0.f, 1.f);
-	//gl_Position = u_ScreenTransform * gl_in[0].gl_Position;
 	gf_TexCoord = tex_coords.xy;
 	gf_Color = vg_Color[0];
 	EmitVertex();
 
 	gl_Position = u_ScreenTransform * vec4((m * vec2(s.x, -s.y)) + s + gl_in[0].gl_Position.xy, 0.f, 1.f);
-	//gl_Position = u_ScreenTransform * (gl_in[0].gl_Position + vec4(vg_TexSize[0].x, 0.f, 0.f, 1.f));
 	gf_TexCoord = tex_coords.zy;
 	gf_Color = vg_Color[0];
 	EmitVertex();
 
 	gl_Position = u_ScreenTransform * vec4((m * vec2(-s.x, s.y)) + s + gl_in[0].gl_Position.xy, 0.f, 1.f);
-	//gl_Position = u_ScreenTransform * (gl_in[0].gl_Position + vec4(0.f, vg_TexSize[0].y, 0.f, 1.f));
 	gf_TexCoord = tex_coords.xw;
 	gf_Color = vg_Color[0];
 	EmitVertex();
 
 	gl_Position = u_ScreenTransform * vec4((m * s) + s + gl_in[0].gl_Position.xy, 0.f, 1.f);
-	//gl_Position = u_ScreenTransform * (gl_in[0].gl_Position + vec4(vg_TexSize[0].xy, 0.f, 1.f));
 	gf_TexCoord = tex_coords.zw;
 	gf_Color = vg_Color[0];
 	EmitVertex();
