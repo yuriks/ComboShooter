@@ -24,7 +24,6 @@ public:
 	void setTexture(gl::Texture* tex);
 	const gl::Texture* getTexture() const;
 
-	static void setup_state();
 	static void initialize_shared();
 	static void deinitialize_shared();
 
