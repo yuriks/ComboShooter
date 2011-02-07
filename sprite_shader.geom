@@ -16,9 +16,7 @@ flat out vec4 gf_Color;
 void main(void) {
 	ivec2 tex_size = textureSize(u_Tex0, 0);
 	// vec4(left, top, right, bottom)
-	vec4 tex_coords = vec4(
-			vec2(float(vg_TexPos[0])/float(tex_size)),
-			vec2(float(vg_TexPos[0] + vg_TexSize[0])/float(tex_size)));
+	ivec4 tex_coords = ivec4(vg_TexPos[0], vg_TexPos[0] + vg_TexSize[0]);
 
 	mat2 m = mat2(vg_Transform[0].xy, vg_Transform[0].zw);
 	vec2 s = vg_TexSize[0] / 2.f;
