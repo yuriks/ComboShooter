@@ -78,7 +78,6 @@ void SpriteBatch::draw() const
 	spr_base_shader->use();
 
 	glUniform1i(spr_base_shader->getUniformLocation("u_Tex0"), 0);
-	glUniform2i(spr_base_shader->getUniformLocation("u_TextureSize"), texture->width, texture->height);
 
 	vec3 s = {2.f/800.f, -2.f/600.f, 1.f};
 	vec3 t = {-1.f, 1.f, 0.f};

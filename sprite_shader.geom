@@ -8,18 +8,17 @@ flat in ivec2 vg_TexPos[1];
 flat in ivec2 vg_TexSize[1];
 flat in vec4 vg_Color[1];
 uniform mat4 u_ScreenTransform;
-uniform ivec2 u_TextureSize;
+uniform sampler2D u_Tex0;
 
 out vec2 gf_TexCoord;
 flat out vec4 gf_Color;
 
 void main(void) {
+	ivec2 tex_size = textureSize(u_Tex0, 0);
 	// vec4(left, top, right, bottom)
 	vec4 tex_coords = vec4(
-			float(vg_TexPos[0].x)/float(u_TextureSize.x),
-			float(vg_TexPos[0].y)/float(u_TextureSize.y),
-			float(vg_TexPos[0].x + vg_TexSize[0].x)/float(u_TextureSize.x),
-			float(vg_TexPos[0].y + vg_TexSize[0].y)/float(u_TextureSize.y));
+			vec2(float(vg_TexPos[0])/float(tex_size)),
+			vec2(float(vg_TexPos[0] + vg_TexSize[0])/float(tex_size)));
 
 	mat2 m = mat2(vg_Transform[0].xy, vg_Transform[0].zw);
 	vec2 s = vg_TexSize[0] / 2.f;
