@@ -113,10 +113,14 @@ void sprite_test()
 			if (spr[i]->x >= 799 || spr[i]->x < 0) spdx[i] = -spdx[i];
 			if (spr[i]->y >= 599 || spr[i]->y < 0) spdy[i] = -spdy[i];
 
-			spr[i]->transform(0,0) = 4.f * std::sin(rot[i]*2.f) * std::cos(rot[i]);
-			spr[i]->transform(0,1) = 4.f * std::sin(rot[i]);
-			spr[i]->transform(1,0) = -4.f * std::sin(rot[i]*2.f) * std::sin(rot[i]);
-			spr[i]->transform(1,1) = 4.f * std::cos(rot[i]);
+			const float s2 = std::sin(rot[i]*2.f);
+			const float c = std::cos(rot[i]);
+			const float s = std::sin(rot[i]);
+
+			spr[i]->transform(0,0) = 4.f * s2 * c;
+			spr[i]->transform(0,1) = 4.f * s;
+			spr[i]->transform(1,0) = -4.f * s2 * s;
+			spr[i]->transform(1,1) = 4.f * c;
 		}
 
 		glClear(GL_COLOR_BUFFER_BIT);
