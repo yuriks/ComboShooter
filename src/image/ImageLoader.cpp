@@ -1,10 +1,10 @@
 #include "ImageLoader.h"
 
 #include <cassert>
-#include <csetjmp>
 #include <istream>
 
 #include <png.h>
+#include <csetjmp>
 
 namespace image {
 

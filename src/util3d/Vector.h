@@ -3,6 +3,8 @@
 
 #include "Matrix.h"
 
+#include <cmath>
+
 typedef mat<4, 1> vec4;
 typedef mat<3, 1> vec3;
 typedef mat<2, 1> vec2;
@@ -71,6 +73,5 @@ mat<N, 1> unit(const mat<N, 1>& v)
 	return v * (1.f / length(v));
 }
 
-};
-
+}
 #endif // BLOODY3D_VECTOR
