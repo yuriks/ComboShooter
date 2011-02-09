@@ -20,7 +20,7 @@ EXTRA_CXXFLAGS += -pedantic -Wall -Wextra
 
 ALL_CXXFLAGS += -std=c++0x -MMD -I./src -DTARGET_$(PLATFORM) $(EXTRA_CXXFLAGS) $(CXXFLAGS)
 ALL_LDFLAGS += $(LDFLAGS)
-LDLIBS += -lm -lGLFW -lGL -lpng
+LDLIBS += -lm -lglfw -lGL -lpng
 
 # RULES ####################################################
 
