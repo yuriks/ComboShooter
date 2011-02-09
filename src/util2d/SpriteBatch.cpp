@@ -32,7 +32,7 @@ struct sprite_data {
 	GLubyte img_w, img_h;
 
 };
-static const int sprite_size = 32;
+static const unsigned int sprite_size = 32u;
 static_assert (sizeof(sprite_data) <= sprite_size, "Struct doesn't fit on a 32-byte slot.");
 
 } // namespace
