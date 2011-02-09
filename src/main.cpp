@@ -23,6 +23,7 @@ mat4 screen_transform;
 void APIENTRY debug_callback(GLenum /*source*/, GLenum /*type*/, GLuint /*id*/, GLenum /*severity*/, GLsizei /*length*/, const GLchar* message, GLvoid* /*userParam*/)
 {
 	std::cout << message << std::endl;
+	exit(2);
 }
 
 void sprite_test()
@@ -176,19 +177,27 @@ void tilemap_test()
 
 int main(int /*argc*/, char** /*argv*/)
 {
-	glfwInit();
+	if (glfwInit() != GL_TRUE) {
+		std::cerr << "Failed to initialize GLFW." << std::endl;
+		return 1;
+	}
 
 	glfwOpenWindowHint(GLFW_OPENGL_VERSION_MAJOR, 3);
 	glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 3);
 	glfwOpenWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwOpenWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 	glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	glfwOpenWindow(800, 600, 8, 8, 8, 8, 24, 8, GLFW_WINDOW);
+	if (glfwOpenWindow(800, 600, 8, 8, 8, 8, 24, 8, GLFW_WINDOW) != GL_TRUE) {
+		std::cerr << "Failed to open window." << std::endl;
+		return 1;
+	}
 
 	if (gl3wInit() != 0) {
 		std::cerr << "Failed to initialize gl3w." << std::endl;
+		return 1;
 	} else if (!gl3wIsSupported(3, 3)) {
 		std::cerr << "OpenGL 3.3 not supported." << std::endl;
+		return 1;
 	}
 
 	if (glDebugMessageCallbackARB) {
