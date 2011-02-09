@@ -32,7 +32,7 @@ static_assert (sizeof(tile_data) == tile_size, "Struct doesn't fit on a 4-byte s
 } // namespace
 
 Tilemap::Tilemap(int x, int y, int width, int height)
-	: texture(0), x(x), y(y), offx(0), offy(0)
+	: x(x), y(y), offx(0), offy(0), texture(0)
 {
 	if (!tile_base_shader)
 		initialize_shared();
@@ -40,10 +40,10 @@ Tilemap::Tilemap(int x, int y, int width, int height)
 	tile_vao.bind();
 
 	const tile_data vertices[4] = {
-		{0,      0},
-		{width , 0},
-		{0,      height},
-		{width , height}
+		{0,               0},
+		{(GLushort)width, 0},
+		{0,               (GLushort)height},
+		{(GLushort)width, (GLushort)height}
 	};
 
 	tile_vbo.bind(GL_ARRAY_BUFFER);
