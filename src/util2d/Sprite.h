@@ -31,7 +31,7 @@ private:
 	SpriteBatch& parent;
 	std::list<Sprite>::iterator iter_to_self;
 
-	friend SpriteBatch;
+	friend class SpriteBatch;
 };
 
 } // namespace util2d

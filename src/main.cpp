@@ -35,7 +35,7 @@ static_assert (sizeof(data) == sizeof(vertex_data)*3, "Oops. Padding.");
 
 mat4 screen_transform;
 
-void APIENTRY debug_callback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, GLvoid* userParam)
+void APIENTRY debug_callback(GLenum /*source*/, GLenum /*type*/, GLuint /*id*/, GLenum /*severity*/, GLsizei /*length*/, const GLchar* message, GLvoid* /*userParam*/)
 {
 	std::cout << message << std::endl;
 }
@@ -189,7 +189,7 @@ void tilemap_test()
 	}
 }
 
-int main(int argc, char *argv[])
+int main(int /*argc*/, char** /*argv*/)
 {
 	glfwInit();
 

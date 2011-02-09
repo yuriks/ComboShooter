@@ -30,7 +30,7 @@ const mat<N+1> translate(const mat<N,1>& v)
 {
 	mat<N+1> m = identity<N+1>();
 
-	for (int i = 0; i < N; ++i) {
+	for (unsigned int i = 0; i < N; ++i) {
 		m(i, N) = v[i];
 	}
 
@@ -42,7 +42,7 @@ const mat<N+1> scale(const mat<N,1>& v)
 {
 	mat<N+1> m = identity<N+1>();
 
-	for (int i = 0; i < N; ++i) {
+	for (unsigned int i = 0; i < N; ++i) {
 		m(i, i) = v[i];
 	}
 
