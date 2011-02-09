@@ -18,21 +18,6 @@
 //#define GLFW_GL3_H
 #include <GL/glfw.h>
 
-struct vertex_data {
-	float x, y, z, w;
-//	float r, g, b, a;
-	float u, v;
-	float fill1, fill2;
-};
-static_assert (sizeof(vertex_data) == sizeof(float)*8, "Oops. Padding.");
-
-static const vertex_data data[3] = {
-	{-.5f,  .5f, 0.f, 1.f, /*1.f, 0.f, 0.f, 1.f,*/ 1.f, 1.f},
-	{ .5f, -.5f, 0.f, 1.f, /*0.f, 1.f, 0.f, 1.f,*/ 0.f, 0.f},
-	{-.5f, -.5f, 0.f, 1.f, /*0.f, 0.f, 1.f, 1.f,*/ 1.f, 0.f}
-};
-static_assert (sizeof(data) == sizeof(vertex_data)*3, "Oops. Padding.");
-
 mat4 screen_transform;
 
 void APIENTRY debug_callback(GLenum /*source*/, GLenum /*type*/, GLuint /*id*/, GLenum /*severity*/, GLsizei /*length*/, const GLchar* message, GLvoid* /*userParam*/)
