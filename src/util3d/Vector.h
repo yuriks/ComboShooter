@@ -26,7 +26,7 @@ float dot(const mat<N, 1>& v1, const mat<N, 1>& v2)
 
 inline vec3 cross(const vec3& a, const vec3& b)
 {
-	vec3 r = {a[1]*b[2] - a[2]*b[1], a[2]*b[0] - a[0]*b[2], a[0]*b[1] - a[1]*b[0]};
+	vec3 r = {{ a[1]*b[2] - a[2]*b[1], a[2]*b[0] - a[0]*b[2], a[0]*b[1] - a[1]*b[0] }};
 	return r;
 }
 

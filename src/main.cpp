@@ -213,8 +213,8 @@ int main(int argc, char *argv[])
 	}
 
 	{
-		vec3 s = {2.f/800.f, -2.f/600.f, 1.f};
-		vec3 t = {-1.f, 1.f, 0.f};
+		vec3 s = {{2.f/800.f, -2.f/600.f, 1.f}};
+		vec3 t = {{-1.f, 1.f, 0.f}};
 		screen_transform = mat_transform::translate(t) * mat_transform::scale(s);
 	}
 
