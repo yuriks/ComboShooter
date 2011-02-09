@@ -47,7 +47,7 @@ static gl3w_fptr get_proc(const char *proc)
 	gl3w_fptr res;
 
 	if (!(res = glXGetProcAddress((const GLubyte *) proc)))
-		res = (gl3w_fptr)dlsym(libgl, proc);
+		*(void**)(&res) = dlsym(libgl, proc);
 	return res;
 }
 #endif
