@@ -21,7 +21,7 @@ gl::Shader* tile_base_vert_shader = 0;
 gl::Shader* tile_base_frag_shader = 0;
 gl::ShaderProgram* tile_base_shader = 0;
 
-GLuint u_Tex0, u_Tilemap, u_ScreenTransform, u_Pos;
+GLuint u_Tex0, u_Tilemap, u_ScreenTransform, u_Pos, u_Offset;
 
 struct tile_data {
 	GLushort x, y;
@@ -32,7 +32,7 @@ static_assert (sizeof(tile_data) == tile_size, "Struct doesn't fit on a 4-byte s
 } // namespace
 
 Tilemap::Tilemap(int x, int y, int width, int height)
-	: texture(0), x(x), y(y)
+	: texture(0), x(x), y(y), offx(0), offy(0)
 {
 	if (!tile_base_shader)
 		initialize_shared();
@@ -53,8 +53,10 @@ Tilemap::Tilemap(int x, int y, int width, int height)
 	glEnableVertexAttribArray(0);
 }
 
-void Tilemap::draw() const
+void Tilemap::draw()
 {
+	fixupScrolling();
+
 	tile_vao.bind();
 
 	tile_base_shader->use();
@@ -65,6 +67,7 @@ void Tilemap::draw() const
 	glUniformMatrix4fv(u_ScreenTransform, 1, false, &screen_transform.data[0]);
 
 	glUniform2f(u_Pos, GLfloat(x), GLfloat(y));
+	glUniform2i(u_Offset, offx, offy);
 
 	glActiveTexture(GL_TEXTURE0);
 	texture->bind(GL_TEXTURE_2D);
@@ -97,6 +100,21 @@ void Tilemap::setTilemap(unsigned short* data, int width, int height)
 	tilemap.width = width;
 	tilemap.height = height;
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_R16UI, width, height, 0, GL_RED_INTEGER, GL_UNSIGNED_SHORT, data);
+}
+
+void Tilemap::fixupScrolling()
+{
+	if (offx < 0) {
+		offx = (tilemap.width * 16) + (offx % (tilemap.width * 16));
+	} else if (offx > (tilemap.width * 16)) {
+		offx %= (tilemap.width * 16);
+	}
+
+	if (offy < 0) {
+		offy = (tilemap.height * 16) + (offy % (tilemap.height * 16));
+	} else if (offx > (tilemap.height * 16)) {
+		offy %= (tilemap.height * 16);
+	}
 }
 
 void Tilemap::initialize_shared()
@@ -145,6 +163,7 @@ void Tilemap::initialize_shared()
 		u_Tilemap = s.getUniformLocation("u_Tilemap");
 		u_ScreenTransform = s.getUniformLocation("u_ScreenTransform");
 		u_Pos = s.getUniformLocation("u_Pos");
+		u_Offset = s.getUniformLocation("u_Offset");
 	}
 }
 

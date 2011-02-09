@@ -12,7 +12,7 @@ class Tilemap
 public:
 	Tilemap(int x, int y, int width, int height);
 
-	void draw() const;
+	void draw();
 
 	void setTexture(gl::Texture* tex);
 	const gl::Texture* getTexture() const;
@@ -20,14 +20,18 @@ public:
 	void setTilemap(unsigned short* data, int width, int height);
 
 	int x, y;
+	// Warning: You shouldn't rely on being able to read back absolute values
+	// from these variables, since they are fixed up to account for wrapping
+	// on every draw call.
+	int offx, offy;
 
 	static void initialize_shared();
 	static void deinitialize_shared();
 
 private:
-	gl::Texture* texture;
+	void fixupScrolling();
 
-	int tilemap_w, tilemap_h;
+	gl::Texture* texture;
 
 	gl::VertexArrayObject tile_vao;
 	gl::BufferObject tile_vbo;

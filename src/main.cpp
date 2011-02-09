@@ -158,19 +158,15 @@ void tilemap_test()
 	tex.height = img.getHeight();
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, img.getWidth(), img.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, img.getData());
 
-	unsigned short map[20*2*15*2];
-	for (int i = 0; i < 20; ++i) {
-		for (int j = 0; j < 15; ++j) {
-			map[20*2*j + i] = 20*j + i;
-			map[20*2*j + i + 20] = 20*j + i;
-			map[20*2*(j+15) + i] = 20*j + i;
-			map[20*2*(j+15) + i + 20] = 20*j + i;
-		}
+	unsigned short map[20*15];
+	for (int i = 0; i < 20*15; ++i) {
+		map[i] = i;
 	}
 
-	util2d::Tilemap tilemap(0, 0, 320*2, 240*2);
+	util2d::Tilemap tilemap(0, 0, 320, 240);
 	tilemap.setTexture(&tex);
-	tilemap.setTilemap(map, 20*2, 15*2);
+	tilemap.setTilemap(map, 20, 15);
+	tilemap.offx = tilemap.offy = 0;
 
 	bool running = true;
 
@@ -181,10 +177,9 @@ void tilemap_test()
 
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		for (int i = 0; i < 128; i += 8) {
-			tilemap.x = tilemap.y = i;
-			tilemap.draw();
-		}
+		tilemap.offx += 5;
+		tilemap.offy -= 3;
+		tilemap.draw();
 
 		std::cout << "\r" << (glfwGetTime() - time_start) * 1000.0 << "ms" << std::flush;
 
