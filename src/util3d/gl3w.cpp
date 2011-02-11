@@ -1,5 +1,7 @@
 #include "gl3w.h"
 
+namespace gl3w {
+
 typedef void (*gl3w_fptr)();
 
 #ifdef _WIN32
@@ -1197,4 +1199,6 @@ static void load_procs(void)
 	glGetnUniformivARB = (PFNGLGETNUNIFORMIVARBPROC) get_proc("glGetnUniformivARB");
 	glGetnUniformuivARB = (PFNGLGETNUNIFORMUIVARBPROC) get_proc("glGetnUniformuivARB");
 	glGetnUniformdvARB = (PFNGLGETNUNIFORMDVARBPROC) get_proc("glGetnUniformdvARB");
+}
+
 }
