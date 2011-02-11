@@ -6,16 +6,18 @@ typedef void (*gl3w_fptr)();
 #define WIN32_LEAN_AND_MEAN 1
 #include <windows.h>
 
-static HMODULE libgl;
+static HMODULE libgl = 0;
 
 static void open_libgl(void)
 {
-	libgl = LoadLibraryA("opengl32.dll");
+	if (libgl == 0)
+		libgl = LoadLibraryA("opengl32.dll");
 }
 
 static void close_libgl(void)
 {
-	FreeLibrary(libgl);
+	if (libgl != 0)
+		FreeLibrary(libgl);
 }
 
 static gl3w_fptr get_proc(const char *proc)
@@ -30,16 +32,18 @@ static gl3w_fptr get_proc(const char *proc)
 #include <dlfcn.h>
 #include <GL/glx.h>
 
-static void *libgl;
+static void *libgl = 0;
 
 static void open_libgl(void)
 {
-	libgl = dlopen("libGL.so.1", RTLD_LAZY | RTLD_GLOBAL);
+	if (libgl == 0)
+		libgl = dlopen("libGL.so.1", RTLD_LAZY | RTLD_GLOBAL);
 }
 
 static void close_libgl(void)
 {
-	dlclose(libgl);
+	if (libgl != 0)
+		dlclose(libgl);
 }
 
 static gl3w_fptr get_proc(const char *proc)
@@ -81,11 +85,13 @@ int gl3wInit(void)
 	open_libgl();
 	load_procs();
 	close_libgl();
-	return parse_version();
+	return 0;
 }
 
 int gl3wIsSupported(int major, int minor)
 {
+	if (parse_version())
+		return 0;
 	if (major < 3)
 		return 0;
 	if (version.major == major)

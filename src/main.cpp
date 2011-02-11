@@ -182,6 +182,11 @@ int main(int /*argc*/, char** /*argv*/)
 		return 1;
 	}
 
+	if (gl3wInit() != 0) {
+		std::cerr << "Failed to initialize gl3w." << std::endl;
+		return 1;
+	}
+
 	glfwOpenWindowHint(GLFW_OPENGL_VERSION_MAJOR, 3);
 	glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 3);
 	glfwOpenWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
@@ -193,7 +198,7 @@ int main(int /*argc*/, char** /*argv*/)
 	}
 
 	if (gl3wInit() != 0) {
-		std::cerr << "Failed to initialize gl3w." << std::endl;
+		std::cerr << "Failed to initialize gl3w. (Again)" << std::endl;
 		return 1;
 	} else if (!gl3wIsSupported(3, 3)) {
 		std::cerr << "OpenGL 3.3 not supported." << std::endl;
