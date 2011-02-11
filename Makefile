@@ -16,11 +16,11 @@ ifneq ($(MAKECMDGOALS), release)
 else
     EXTRA_CXXFLAGS += -g0 -O2 -DNDEBUG
 endif
-EXTRA_CXXFLAGS += -pedantic -Wall -Wextra
+EXTRA_CXXFLAGS += -pedantic -Wall -Wextra `pkg-config --cflags libglfw`
 
 ALL_CXXFLAGS += -std=c++0x -MMD -I./src -DTARGET_$(PLATFORM) $(EXTRA_CXXFLAGS) $(CXXFLAGS)
 ALL_LDFLAGS += $(LDFLAGS)
-LDLIBS += -lm -lglfw -lGL -lpng
+LDLIBS += -lm -lpng `pkg-config --libs libglfw`
 
 # RULES ####################################################
 
