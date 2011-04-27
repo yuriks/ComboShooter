@@ -109,11 +109,13 @@ void sprite_test()
 			spr[i]->transform(1,1) = 4.f * c;
 		}
 
+		double time_gpu = glfwGetTime();
+
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		spr_batch.draw();
 
-		std::cout << "\r" << (glfwGetTime() - time_start) * 1000.0 << "ms" << std::flush;
+		std::cout << "\r" << "Total: " << (glfwGetTime() - time_start) * 1000.0 << "ms" << "      Draw: " << (glfwGetTime() - time_gpu) * 1000.0 << "ms        " << std::flush;
 
 		glfwSwapBuffers();
 
