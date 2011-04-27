@@ -1,6 +1,6 @@
-#include "util3d/Matrix.h"
-#include "util3d/Vector.h"
-#include "util3d/MatrixTransform.h"
+#include "util3d/Matrix.hpp"
+#include "util3d/Vector.hpp"
+#include "util3d/MatrixTransform.hpp"
 #include "util3d/gl/VertexArrayObject.h"
 #include "util3d/gl/BufferObject.h"
 #include "util3d/gl/Shader.h"
@@ -17,6 +17,8 @@
 
 //#define GLFW_GL3_H
 #include <GL/glfw.h>
+
+using namespace math;
 
 mat4 screen_transform;
 

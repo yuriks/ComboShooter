@@ -1,7 +1,7 @@
 #ifndef COMBOSHOOTER_UTIL2D_SPRITE_H
 #define COMBOSHOOTER_UTIL2D_SPRITE_H
 
-#include "../util3d/Matrix.h"
+#include "../util3d/Matrix.hpp"
 
 #include <memory>
 #include <list>
@@ -19,7 +19,7 @@ public:
 	void remove();
 
 	short x, y;
-	mat2 transform;
+	math::mat2 transform;
 	unsigned char r, g, b, a;
 
 	unsigned char img_x, img_y;

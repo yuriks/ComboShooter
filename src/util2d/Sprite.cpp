@@ -1,12 +1,12 @@
 #include "Sprite.h"
 
-#include "../util3d/MatrixTransform.h"
+#include "../util3d/MatrixTransform.hpp"
 #include "SpriteBatch.h"
 
 namespace util2d {
 
 Sprite::Sprite(SpriteBatch& parent_)
-	: x(0), y(0), transform(mat_transform::identity<2>()),
+	: x(0), y(0), transform(math::mat_transform::identity<2>()),
 	r(255), g(255), b(255), a(255),
 	img_x(0), img_y(0), img_w(0), img_h(0),
 	parent(parent_)

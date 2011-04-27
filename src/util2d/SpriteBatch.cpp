@@ -1,8 +1,8 @@
 #include "SpriteBatch.h"
 
-#include "../util3d/Vector.h"
-#include "../util3d/Matrix.h"
-#include "../util3d/MatrixTransform.h"
+#include "../util3d/Vector.hpp"
+#include "../util3d/Matrix.hpp"
+#include "../util3d/MatrixTransform.hpp"
 #include "../util3d/gl/VertexArrayObject.h"
 #include "../util3d/gl/BufferObject.h"
 #include "../util3d/gl/ShaderProgram.h"
@@ -11,7 +11,7 @@
 #include <cassert>
 #include <fstream>
 
-extern mat4 screen_transform;
+extern math::mat4 screen_transform;
 
 namespace util2d {
 
@@ -80,7 +80,7 @@ void SpriteBatch::draw() const
 
 	glUniform1i(u_Tex0, 0);
 
-	glUniformMatrix4fv(u_ScreenTransform, 1, false, &screen_transform.data[0]);
+	glUniformMatrix4fv(u_ScreenTransform, 1, true, &screen_transform.data[0]);
 
 	glActiveTexture(GL_TEXTURE0);
 	texture->bind(GL_TEXTURE_2D);

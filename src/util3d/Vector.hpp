@@ -1,16 +1,35 @@
 #ifndef BLOODY3D_VECTOR
 #define BLOODY3D_VECTOR
 
-#include "Matrix.h"
+#include "Matrix.hpp"
 
 #include <cmath>
+
+namespace math {
 
 typedef mat<4, 1> vec4;
 typedef mat<3, 1> vec3;
 typedef mat<2, 1> vec2;
 
-namespace vec
+inline vec2 make_vec(float x, float y)
 {
+	vec2 v = {{x, y}};
+	return v;
+}
+
+inline vec3 make_vec(float x, float y, float z)
+{
+	vec3 v = {{x, y, z}};
+	return v;
+}
+
+inline vec4 make_vec(float x, float y, float z, float w)
+{
+	vec4 v = {{x, y, z, w}};
+	return v;
+}
+
+namespace vec {
 
 template <unsigned int N>
 float dot(const mat<N, 1>& v1, const mat<N, 1>& v2)
@@ -73,5 +92,8 @@ mat<N, 1> unit(const mat<N, 1>& v)
 	return v * (1.f / length(v));
 }
 
-}
+} // namespace vec
+
+} // namespace math
+
 #endif // BLOODY3D_VECTOR

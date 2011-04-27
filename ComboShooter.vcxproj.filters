@@ -30,15 +30,6 @@
     <ClInclude Include="src\util3d\gl3w.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\util3d\Matrix.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\util3d\MatrixTransform.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\util3d\Vector.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\image\ImageLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -52,6 +43,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\util2d\Tilemap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util3d\Matrix.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util3d\MatrixTransform.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util3d\Vector.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

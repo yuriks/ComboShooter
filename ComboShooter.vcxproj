@@ -21,9 +21,9 @@
     <ClInclude Include="src\util3d\gl\ShaderProgram.h" />
     <ClInclude Include="src\util3d\gl\Texture.h" />
     <ClInclude Include="src\util3d\gl\VertexArrayObject.h" />
-    <ClInclude Include="src\util3d\Matrix.h" />
-    <ClInclude Include="src\util3d\MatrixTransform.h" />
-    <ClInclude Include="src\util3d\Vector.h" />
+    <ClInclude Include="src\util3d\Matrix.hpp" />
+    <ClInclude Include="src\util3d\MatrixTransform.hpp" />
+    <ClInclude Include="src\util3d\Vector.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\image\ImageLoader.cpp" />

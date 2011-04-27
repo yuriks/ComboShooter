@@ -1,11 +1,12 @@
 #ifndef BLOODY3D_MATRIXTRANSFORM
 #define BLOODY3D_MATRIXTRANSFORM
 
-#include "Matrix.h"
-#include "Vector.h"
+#include "Matrix.hpp"
+#include "Vector.hpp"
 
-namespace mat_transform
-{
+namespace math {
+
+namespace mat_transform {
 
 template <unsigned int N>
 const mat<N>& identity()
@@ -51,6 +52,8 @@ const mat<N+1> scale(const mat<N,1>& v)
 
 mat4 rotate(const vec3& axis, float angle);
 
-}
+} // namespace mat_transform
+
+} // namespace math
 
 #endif // BLOODY3D_MATRIXTRANSFORM
