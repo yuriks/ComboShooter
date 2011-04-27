@@ -1,4 +1,4 @@
-#include "ImageLoader.h"
+#include "ImageLoader.hpp"
 
 #include <cassert>
 #include <istream>

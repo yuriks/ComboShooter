@@ -1,7 +1,7 @@
-#include "Sprite.h"
+#include "Sprite.hpp"
 
 #include "../util3d/MatrixTransform.hpp"
-#include "SpriteBatch.h"
+#include "SpriteBatch.hpp"
 
 namespace util2d {
 

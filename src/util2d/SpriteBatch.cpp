@@ -1,12 +1,12 @@
-#include "SpriteBatch.h"
+#include "SpriteBatch.hpp"
 
 #include "../util3d/Vector.hpp"
 #include "../util3d/Matrix.hpp"
 #include "../util3d/MatrixTransform.hpp"
-#include "../util3d/gl/VertexArrayObject.h"
-#include "../util3d/gl/BufferObject.h"
-#include "../util3d/gl/ShaderProgram.h"
-#include "../util3d/gl/Texture.h"
+#include "../util3d/gl/VertexArrayObject.hpp"
+#include "../util3d/gl/BufferObject.hpp"
+#include "../util3d/gl/ShaderProgram.hpp"
+#include "../util3d/gl/Texture.hpp"
 
 #include <cassert>
 #include <fstream>

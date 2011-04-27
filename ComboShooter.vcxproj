@@ -11,16 +11,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\image\ImageLoader.h" />
-    <ClInclude Include="src\util2d\Sprite.h" />
-    <ClInclude Include="src\util2d\SpriteBatch.h" />
-    <ClInclude Include="src\util2d\Tilemap.h" />
-    <ClInclude Include="src\util3d\gl3w.h" />
-    <ClInclude Include="src\util3d\gl\BufferObject.h" />
-    <ClInclude Include="src\util3d\gl\Shader.h" />
-    <ClInclude Include="src\util3d\gl\ShaderProgram.h" />
-    <ClInclude Include="src\util3d\gl\Texture.h" />
-    <ClInclude Include="src\util3d\gl\VertexArrayObject.h" />
+    <ClInclude Include="src\image\ImageLoader.hpp" />
+    <ClInclude Include="src\util2d\Sprite.hpp" />
+    <ClInclude Include="src\util2d\SpriteBatch.hpp" />
+    <ClInclude Include="src\util2d\Tilemap.hpp" />
+    <ClInclude Include="src\util3d\gl3w.hpp" />
+    <ClInclude Include="src\util3d\gl\BufferObject.hpp" />
+    <ClInclude Include="src\util3d\gl\Shader.hpp" />
+    <ClInclude Include="src\util3d\gl\ShaderProgram.hpp" />
+    <ClInclude Include="src\util3d\gl\Texture.hpp" />
+    <ClInclude Include="src\util3d\gl\VertexArrayObject.hpp" />
     <ClInclude Include="src\util3d\Matrix.hpp" />
     <ClInclude Include="src\util3d\MatrixTransform.hpp" />
     <ClInclude Include="src\util3d\Vector.hpp" />

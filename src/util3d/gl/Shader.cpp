@@ -1,5 +1,5 @@
-#include "Shader.h"
-#include "ShaderProgram.h"
+#include "Shader.hpp"
+#include "ShaderProgram.hpp"
 
 #include <iostream>
 #include <fstream>

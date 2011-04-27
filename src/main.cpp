@@ -1,19 +1,19 @@
 #include "util3d/Matrix.hpp"
 #include "util3d/Vector.hpp"
 #include "util3d/MatrixTransform.hpp"
-#include "util3d/gl/VertexArrayObject.h"
-#include "util3d/gl/BufferObject.h"
-#include "util3d/gl/Shader.h"
-#include "util3d/gl/ShaderProgram.h"
-#include "util3d/gl/Texture.h"
-#include "image/ImageLoader.h"
-#include "util2d/SpriteBatch.h"
-#include "util2d/Tilemap.h"
+#include "util3d/gl/VertexArrayObject.hpp"
+#include "util3d/gl/BufferObject.hpp"
+#include "util3d/gl/Shader.hpp"
+#include "util3d/gl/ShaderProgram.hpp"
+#include "util3d/gl/Texture.hpp"
+#include "image/ImageLoader.hpp"
+#include "util2d/SpriteBatch.hpp"
+#include "util2d/Tilemap.hpp"
 
 #include <iostream>
 #include <fstream>
 
-#include "util3d/gl3w.h"
+#include "util3d/gl3w.hpp"
 
 //#define GLFW_GL3_H
 #include <GL/glfw.h>

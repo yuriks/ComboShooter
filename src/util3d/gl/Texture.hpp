@@ -1,7 +1,7 @@
 #ifndef BLOODY3D_GL_TEXTURE
 #define BLOODY3D_GL_TEXTURE
 
-#include "../gl3w.h"
+#include "../gl3w.hpp"
 
 #include <boost/noncopyable.hpp>
 

@@ -1,9 +1,9 @@
 #ifndef COMBOSHOOTER_UTIL2D_TILEMAP_H
 #define COMBOSHOOTER_UTIL2D_TILEMAP_H
 
-#include "../util3d/gl/VertexArrayObject.h"
-#include "../util3d/gl/BufferObject.h"
-#include "../util3d/gl/Texture.h"
+#include "../util3d/gl/VertexArrayObject.hpp"
+#include "../util3d/gl/BufferObject.hpp"
+#include "../util3d/gl/Texture.hpp"
 
 namespace util2d {
 

@@ -5,9 +5,9 @@ namespace gl {
 	class Texture;
 }
 
-#include "Sprite.h"
-#include "../util3d/gl/VertexArrayObject.h"
-#include "../util3d/gl/BufferObject.h"
+#include "Sprite.hpp"
+#include "../util3d/gl/VertexArrayObject.hpp"
+#include "../util3d/gl/BufferObject.hpp"
 
 #include <list>
 

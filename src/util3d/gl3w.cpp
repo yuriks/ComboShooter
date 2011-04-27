@@ -1,4 +1,4 @@
-#include "gl3w.h"
+#include "gl3w.hpp"
 
 namespace gl3w {
 
