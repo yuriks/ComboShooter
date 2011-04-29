@@ -43,11 +43,13 @@ float dot(const mat<N, 1>& v1, const mat<N, 1>& v2)
 	return r;
 }
 
+#ifndef USE_SSE2
 inline vec3 cross(const vec3& a, const vec3& b)
 {
 	vec3 r = {{ a[1]*b[2] - a[2]*b[1], a[2]*b[0] - a[0]*b[2], a[0]*b[1] - a[1]*b[0] }};
 	return r;
 }
+#endif
 
 template <unsigned int N>
 inline mat<N-1, 1> euclidean(const mat<N, 1>& v)
@@ -89,11 +91,15 @@ float length(const mat<N, 1>& v)
 template <unsigned int N>
 mat<N, 1> unit(const mat<N, 1>& v)
 {
-	return v * (1.f / length(v));
+	return v / length(v);
 }
 
 } // namespace vec
 
 } // namespace math
+
+#ifdef USE_SSE2
+#include "sse2/Vector.hpp"
+#endif
 
 #endif // BLOODY3D_VECTOR
