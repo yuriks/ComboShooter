@@ -80,7 +80,7 @@ void SpriteBatch::draw() const
 
 	glUniform1i(u_Tex0, 0);
 
-	glUniformMatrix4fv(u_ScreenTransform, 1, screen_transform.ROW_MAJOR, &screen_transform.data[0]);
+	glUniformMatrix4fv(u_ScreenTransform, 1, false, &screen_transform.data[0]);
 
 	glActiveTexture(GL_TEXTURE0);
 	texture->bind(GL_TEXTURE_2D);
