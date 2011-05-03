@@ -64,7 +64,7 @@ void Tilemap::draw()
 	glUniform1i(u_Tex0, 0);
 	glUniform1i(u_Tilemap, 1);
 
-	glUniformMatrix4fv(u_ScreenTransform, 1, true, &screen_transform.data[0]);
+	glUniformMatrix4fv(u_ScreenTransform, 1, screen_transform.ROW_MAJOR, &screen_transform.data[0]);
 
 	glUniform2f(u_Pos, GLfloat(x), GLfloat(y));
 	glUniform2i(u_Offset, offx, offy);

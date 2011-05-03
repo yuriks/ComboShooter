@@ -23,6 +23,10 @@
     <ClInclude Include="src\util3d\gl\VertexArrayObject.hpp" />
     <ClInclude Include="src\util3d\Matrix.hpp" />
     <ClInclude Include="src\util3d\MatrixTransform.hpp" />
+    <ClInclude Include="src\util3d\sse2\Matrix.hpp" />
+    <ClInclude Include="src\util3d\sse2\Vector.hpp" />
+    <ClInclude Include="src\util3d\sse2\vec_def.hpp" />
+    <ClInclude Include="src\util3d\sse2\vec_ops.hpp" />
     <ClInclude Include="src\util3d\Vector.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -71,6 +75,7 @@
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <OpenMPSupport>false</OpenMPSupport>
+      <FloatingPointModel>Fast</FloatingPointModel>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -90,6 +95,7 @@
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <OpenMPSupport>false</OpenMPSupport>
+      <FloatingPointModel>Fast</FloatingPointModel>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
