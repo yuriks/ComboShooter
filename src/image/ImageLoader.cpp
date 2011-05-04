@@ -106,4 +106,18 @@ void Image::loadPNGFileRGBA8(Image& image, std::istream& stream)
 	png_destroy_read_struct(&png_ptr, &info_ptr, 0);
 }
 
+void preMultiplyAlpha(Image& image)
+{
+	unsigned char* data = image.getData();
+
+	const unsigned int size = image.getWidth() * image.getHeight() * 4;
+
+	for (unsigned int i = 0; i < size; i += 4) {
+		unsigned char alpha = data[i+3];
+		data[i+0] = data[i+0] * alpha / 255;
+		data[i+1] = data[i+1] * alpha / 255;
+		data[i+2] = data[i+2] * alpha / 255;
+	}
+}
+
 }

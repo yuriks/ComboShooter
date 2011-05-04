@@ -36,6 +36,8 @@ private:
 	unsigned char* data;
 };
 
+void preMultiplyAlpha(Image& image);
+
 ///////////////////////////////////////////////////////////////////////////////
 
 inline PngException::PngException(const std::string& str)

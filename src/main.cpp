@@ -35,6 +35,7 @@ void sprite_test()
 		std::ifstream f("ship-no-outline.png", std::ios::in | std::ios::binary);
 		image::Image::loadPNGFileRGBA8(img, f);
 	}
+	image::preMultiplyAlpha(img);
 
 	util2d::SpriteBatch::initialize_shared();
 
@@ -217,7 +218,7 @@ int main(int /*argc*/, char** /*argv*/)
 		screen_transform = mat_transform::translate(t) * mat_transform::scale(s);
 	}
 
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_BLEND);
 
 	sprite_test();
