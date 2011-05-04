@@ -14,11 +14,11 @@ out vec2 gf_TexCoord;
 flat out vec4 gf_Color;
 
 void main(void) {
-	ivec2 tex_size = textureSize(u_Tex0, 0);
+	vec2 tex_size = vec2(textureSize(u_Tex0, 0));
 	// vec4(left, top, right, bottom)
-	ivec4 tex_coords = ivec4(vg_TexPos[0], vg_TexPos[0] + vg_TexSize[0]);
+	vec4 tex_coords = vec4(vg_TexPos[0] / tex_size, (vg_TexPos[0] + vg_TexSize[0]) / tex_size);
 
-	mat2 m = mat2(vg_Transform[0].xz, vg_Transform[0].yw);
+	mat2 m = mat2(vg_Transform[0].xy, vg_Transform[0].zw);
 	vec2 s = vg_TexSize[0] / 2.f;
 
 	gl_Position = u_ScreenTransform * vec4((m * -s) + s + gl_in[0].gl_Position.xy, 0.f, 1.f);
