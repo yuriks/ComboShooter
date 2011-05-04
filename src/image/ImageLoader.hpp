@@ -18,21 +18,21 @@ class Image : boost::noncopyable
 {
 public:
 	Image();
-	Image(int width, int height);
+	Image(unsigned int width, unsigned int height);
 	~Image();
 
-	void initialize(int width, int height);
+	void initialize(unsigned int width, unsigned int height);
 	void clear();
 
-	int getWidth() const;
-	int getHeight() const;
+	unsigned int getWidth() const;
+	unsigned int getHeight() const;
 	unsigned char* getData() const;
 
 	static void loadPNGFileRGBA8(Image& image, std::istream& stream);
 
 private:
-	int width;
-	int height;
+	unsigned int width;
+	unsigned int height;
 	unsigned char* data;
 };
 
@@ -48,7 +48,7 @@ inline Image::Image()
 {
 }
 
-inline Image::Image(int width, int height)
+inline Image::Image(unsigned int width, unsigned int height)
 	: width(-1), height(-1), data(0)
 {
 	initialize(width, height);
@@ -59,12 +59,12 @@ inline Image::~Image()
 	clear();
 }
 
-inline int Image::getWidth() const
+inline unsigned int Image::getWidth() const
 {
 	return width;
 }
 
-inline int Image::getHeight() const
+inline unsigned int Image::getHeight() const
 {
 	return height;
 }

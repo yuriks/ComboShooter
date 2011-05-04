@@ -8,10 +8,10 @@
 
 namespace image {
 
-void Image::initialize(int width_, int height_)
+void Image::initialize(unsigned int width_, unsigned int height_)
 {
-	assert(width_ > 0);
-	assert(height_ > 0);
+	assert(width_ != -1);
+	assert(height_ != -1);
 
 	clear();
 	data = new unsigned char[width_ * height_ * 4];
