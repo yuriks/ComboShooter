@@ -17,6 +17,25 @@ Sprite::~Sprite()
 {
 }
 
+Sprite& Sprite::operator=(const Sprite& o)
+{
+	x = o.x;
+	y = o.y;
+	transform = o.transform;
+
+	r = o.r;
+	g = o.g;
+	b = o.b;
+	a = o.a;
+
+	img_x = o.img_x;
+	img_y = o.img_y;
+	img_w = o.img_w;
+	img_h = o.img_h;
+
+	return *this;
+}
+
 void Sprite::remove()
 {
 	parent.remove(*this);

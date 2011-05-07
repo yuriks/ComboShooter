@@ -32,7 +32,7 @@ void sprite_test()
 {
 	image::Image img;
 	{
-		std::ifstream f("ship-no-outline.png", std::ios::in | std::ios::binary);
+		std::ifstream f("data/ship-no-outline.png", std::ios::in | std::ios::binary);
 		image::Image::loadPNGFileRGBA8(img, f);
 	}
 	image::preMultiplyAlpha(img);
@@ -151,7 +151,7 @@ void tilemap_test()
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, img.getWidth(), img.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, img.getData());
 
 	unsigned short map[20*15];
-	for (int i = 0; i < 20*15; ++i) {
+	for (unsigned short i = 0; i < 20*15; ++i) {
 		map[i] = i;
 	}
 

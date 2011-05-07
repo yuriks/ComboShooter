@@ -26,7 +26,7 @@ static gl3w_fptr get_proc(const char *proc)
 {
 	gl3w_fptr res;
 
-	if (!(res = (gl3w_fptr)wglGetProcAddress(proc)))
+	if ((res = (gl3w_fptr)wglGetProcAddress(proc)) == 0)
 		res = (gl3w_fptr)GetProcAddress(libgl, proc);
 	return res;
 }
@@ -67,7 +67,7 @@ static int parse_version(void)
 	const char *p;
 	int major, minor;
 
-	if (!glGetString || !(p = (const char *)glGetString(GL_VERSION)))
+	if (!glGetString || (p = (const char *)glGetString(GL_VERSION)) == 0)
 		return -1;
 	for (major = 0; *p >= '0' && *p <= '9'; p++)
 		major = 10 * major + *p - '0';

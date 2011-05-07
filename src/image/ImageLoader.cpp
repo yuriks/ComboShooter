@@ -10,8 +10,8 @@ namespace image {
 
 void Image::initialize(unsigned int width_, unsigned int height_)
 {
-	assert(width_ != -1);
-	assert(height_ != -1);
+	assert(width_ != ~0u);
+	assert(height_ != ~0u);
 
 	clear();
 	data = new unsigned char[width_ * height_ * 4];
@@ -22,10 +22,13 @@ void Image::initialize(unsigned int width_, unsigned int height_)
 void Image::clear()
 {
 	delete[] data;
-	width = -1;
-	height = -1;
+	width = ~0u;
+	height = ~0u;
 	data = 0;
 }
+
+namespace
+{
 
 extern "C" void read_data(png_structp png_ptr, png_bytep data, png_size_t len)
 {
@@ -36,13 +39,15 @@ extern "C" void read_data(png_structp png_ptr, png_bytep data, png_size_t len)
 	}
 }
 
+}
+
 void Image::loadPNGFileRGBA8(Image& image, std::istream& stream)
 {
 	png_structp png_ptr = 0;
 	png_infop info_ptr = 0;
 	bool clear_image = false;
-	png_uint_32 img_width = -1;
-	png_uint_32 img_height = -1;
+	png_uint_32 img_width = ~0u;
+	png_uint_32 img_height = ~0u;
 	int bit_depth, color_type, interlace_type;
 	png_bytep* row_pointers = 0;
 	unsigned int i;

@@ -15,6 +15,8 @@ class Sprite
 public:
 	~Sprite();
 
+	Sprite& operator=(const Sprite& o);
+
 	// Important: pointer is no longer valid after calling this!
 	void remove();
 

@@ -8,7 +8,7 @@
 
 namespace image {
 
-class PngException : std::runtime_error
+class PngException : public std::runtime_error
 {
 public:
 	PngException(const std::string& str);
@@ -46,12 +46,12 @@ inline PngException::PngException(const std::string& str)
 }
 
 inline Image::Image()
-	: width(-1), height(-1), data(0)
+	: width(~0u), height(~0u), data(0)
 {
 }
 
 inline Image::Image(unsigned int width, unsigned int height)
-	: width(-1), height(-1), data(0)
+	: width(~0u), height(~0u), data(0)
 {
 	initialize(width, height);
 }
