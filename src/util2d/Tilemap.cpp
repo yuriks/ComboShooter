@@ -21,7 +21,7 @@ gl::Shader* tile_base_vert_shader = 0;
 gl::Shader* tile_base_frag_shader = 0;
 gl::ShaderProgram* tile_base_shader = 0;
 
-GLuint u_Tex0, u_Tilemap, u_ScreenTransform, u_Pos, u_Offset;
+GLuint u_Tex0, u_Tilemap, u_ScreenTransform, u_Pos, u_Offset, u_Color;
 
 struct tile_data {
 	GLushort x, y;
@@ -34,6 +34,8 @@ static_assert (sizeof(tile_data) == tile_size, "Struct doesn't fit on a 4-byte s
 Tilemap::Tilemap(int x, int y, int width, int height)
 	: x(x), y(y), offx(0), offy(0), texture(0)
 {
+	color.fill(1.f);
+
 	if (!tile_base_shader)
 		initialize_shared();
 
@@ -69,6 +71,8 @@ void Tilemap::draw()
 	glUniform2f(u_Pos, GLfloat(x), GLfloat(y));
 	glUniform2i(u_Offset, offx, offy);
 
+	glUniform4fv(u_Color, 1, &color[0]);
+
 	glActiveTexture(GL_TEXTURE0);
 	texture->bind(GL_TEXTURE_2D);
 	glActiveTexture(GL_TEXTURE1);
@@ -100,6 +104,14 @@ void Tilemap::setTilemap(unsigned short* data, int width, int height)
 	tilemap.width = width;
 	tilemap.height = height;
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_R16UI, width, height, 0, GL_RED_INTEGER, GL_UNSIGNED_SHORT, data);
+}
+
+void Tilemap::setColor(float r, float g, float b, float a)
+{
+	color[0] = r;
+	color[1] = g;
+	color[2] = b;
+	color[3] = a;
 }
 
 void Tilemap::fixupScrolling()
@@ -164,6 +176,7 @@ void Tilemap::initialize_shared()
 		u_ScreenTransform = s.getUniformLocation("u_ScreenTransform");
 		u_Pos = s.getUniformLocation("u_Pos");
 		u_Offset = s.getUniformLocation("u_Offset");
+		u_Color = s.getUniformLocation("u_Color");
 	}
 }
 
