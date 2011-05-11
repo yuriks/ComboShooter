@@ -85,6 +85,7 @@ void SpriteBatch::draw() const
 	glActiveTexture(GL_TEXTURE0);
 	texture->bind(GL_TEXTURE_2D);
 
+	spr_vbo.bind(GL_ARRAY_BUFFER);
 	do {
 		char* buf = (char*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 
